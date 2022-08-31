@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+    <mapper namespace="com.lixing.sv.dataserver.dao.CommentDao">
+    <!-- 查询
+        <select id="findAll" resultType="SelfUser">
+            select * from sv_comment
+        </select>  
+        
+        <select id="queryMaxId" resultType="java.lang.Long">
+            select max(id) from sv_comment
+        </select> 
+        
+        <select id="queryByName" resultType="SelfUser">
+            select * from sv_user where name=#{name};
+        </select> 
+        
+        <select id="queryById" resultType="OtherUser">
+            select id,name,follow_count,follower_count from sv_comment where id=#{id};
+        </select> 
+        
+        <select id="queryBytoken" resultType="java.lang.Long">
+            select id from sv_comment where token=#{token};
+        </select> 
+        -->
+        <select id="queryNewId" resultType="java.long.Long">
+        	select last_insert_id() from sv_comment;
+        </select>
+    <!-- 插入 -->    
+         <insert id="addComment" parameterType="SelfUser">
+    		insert into sv_comment (video_id,content,create_date,usercode) values (#{videoId},#{content},NOW(),#{userId})
+		</insert>
+	<!-- 删除 -->
+		<delect id="deleteComment" resultType="java.long.Long">
+			delect from sv_comment where id=#{id}
+		</delect>
+		
+    </mapper>

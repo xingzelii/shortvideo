@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+    <mapper namespace="com.lixing.sv.dataserver.dao.VideoDao">
+    <!-- 查询 -->
+        <select id="findAll" resultType="SelfUser">
+            select * from sv_video
+        </select>  
+        
+        <select id="queryMaxId" resultType="java.lang.Long">
+            select max(id) from sv_video;
+        </select> 
+    <!-- 插入 --> 
+		<insert id="addVideo" parameterType="VideoForDao">
+    		insert into sv_video (id,url,title,favorite_count,comment_count,userid) values (#{id},#{url},#{title},#{favoriteCount},#{commentCount},#{userid})
+		</insert>
+	<!-- 修改 -->
+		<update id="favourite">
+			update sv_video set favorite_count=favorite_count+1 where id=#{id}
+		</update>
+		<update id="disfavourite">
+			update sv_video set favorite_count=favorite_count-1 where id=#{id}
+		</update>
+    </mapper>

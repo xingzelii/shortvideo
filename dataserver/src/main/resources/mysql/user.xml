@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+    <mapper namespace="com.lixing.sv.dataserver.dao.UserDao">
+    <!-- 查询 -->
+        <select id="findAll" resultType="SelfUser">
+            select * from sv_user
+        </select>  
+        
+        <select id="queryMaxId" resultType="java.lang.Long">
+            select max(id) from sv_user;
+        </select> 
+        
+        <select id="queryByName" resultType="SelfUser">
+            select * from sv_user where name=#{name};
+        </select> 
+        
+        <select id="queryById" resultType="OtherUser">
+            select id,name,follow_count,follower_count from sv_user where id=#{id};
+        </select> 
+        
+        <select id="queryBytoken" resultType="java.lang.Long">
+            select id from sv_user where token=#{token};
+        </select> 
+    <!-- 插入 -->    
+         <insert id="addUser" parameterType="SelfUser">
+    		insert into sv_user (id,name,password,token,follow_count,follower_count) values (#{id},#{name},#{password},#{token},#{followCount},#{followerCount})
+		</insert>
+		
+		
+    </mapper>

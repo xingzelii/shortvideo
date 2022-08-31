@@ -1,0 +1,50 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+spring:
+  application:
+    name: view-service-feign
+  zipkin:
+    base-url: http://localhost:9411
+  thymeleaf:
+    cache: false
+    prefix: classpath:/static/
+    suffix: .html
+    encoding: UTF-8
+    content-type: text/html
+    mode: HTML5 
+  resources:
+    static-locations: /META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/videos/,file:${E:/staticsource/}
+  mvc:
+    static-path-pattern: /**
+  servlet:
+    multipart:
+      max-file-size: 500MB  #单个数据大小
+      max-request-size: 1024MB #总数据大小
+  redis:
+    host: localhost
+    password:
+    port: 6379
+    ssl: false
+    #连接超时时间 这里用的是Duration时间类型,这里配置是是48小时,如果你不想你的连接超时,把这个配置给注掉
+    #connect-timeout: PT48H
+    #读取数据超时时间,这里5秒查不到数据就超时
+    timeout: PT5S
+    database: 3
+    client-type: jedis
+    #这里采用jedis作为客户端
+    jedis:
+      pool:
+        #redis最小空闲连接数量,当空闲连接小于这个数之后会去申请空闲连接直到最大的空闲连接数量
+        min-idle: 10
+        #redis最大空闲连接数量 表示即使没有数据连接时依然可以保持50个空闲的连接而不被清除,随时处于待命状态
+        max-idle: 50
+        #最大连接数,这个直接设置成并发量就行，自己看着设置，一般设置成100就可以了，除非你是大项目
+        max-active: 100
+        #等待连接超时时间,如果在等待的连接时间超过了这个时间就舍弃掉,这里配置5分钟
+        max-wait: PT5M
+        #多长时间检查一次连接状况,当空闲连接小于最小空闲连接数量时会做空闲连接的增加
+        #当连接等待超时做废弃连接的清理工作,这里配置5分钟检查一次
+        time-between-eviction-runs: PT5M
