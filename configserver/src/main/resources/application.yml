@@ -6,8 +6,8 @@ spring:
       label: master
       server:
         git:
-          uri: 
-          searchPaths: respo
+          uri: https://github.com/xingzelii/shortvideo
+          searchPaths: repos
 eureka:
   client:
     serviceUrl:
